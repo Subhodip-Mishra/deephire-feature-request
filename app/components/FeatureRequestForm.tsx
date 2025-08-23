@@ -45,36 +45,36 @@ export default function FeatureRequestForm() {
     else setRecruiterData((prev) => ({ ...prev, [field]: value }));
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  const formData = activeTab === "job-seeker" ? jobSeekerData : recruiterData;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = activeTab === "job-seeker" ? jobSeekerData : recruiterData;
 
-  if (!formData.name || !formData.email || !formData.featureRequest) {
-    alert("Please fill in all fields");
-    return;
-  }
-
-  setIsSubmitting(true);
-
-  try {
-    const res = await fetch("/api/feature-request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...formData, userType: activeTab }),
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.error || "Something went wrong");
+    if (!formData.name || !formData.email || !formData.featureRequest) {
+      alert("Please fill in all fields");
+      return;
     }
 
-    setIsSubmitted(true);
-  } catch (err: any) {
-    alert("Failed to submit: " + err.message);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/feature-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, userType: activeTab }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Something went wrong");
+      }
+
+      setIsSubmitted(true);
+    } catch (err: any) {
+      alert("Failed to submit: " + err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
 
   if (isSubmitted) {
@@ -89,9 +89,10 @@ export default function FeatureRequestForm() {
                   Request Submitted Successfully
                 </h2>
                 <p className="text-gray-600">
-                  Thank you for helping us improve DeepHireAI. We'll review your
+                  Thank you for helping us improve DeepHireAI. We&apos;ll review your
                   feature request and update you on its progress.
                 </p>
+
               </div>
               <Button
                 onClick={() => {
@@ -130,22 +131,20 @@ export default function FeatureRequestForm() {
           <div className="flex bg-gray-100 rounded-sm px-1 py-1">
             <button
               onClick={() => setActiveTab("job-seeker")}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-1 rounded-sm text-sm font-medium transition-all duration-200 ${
-                activeTab === "job-seeker"
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-1 rounded-sm text-sm font-medium transition-all duration-200 ${activeTab === "job-seeker"
                   ? "bg-black text-white"
                   : "text-gray-600 hover:text-gray-900"
-              }`}
+                }`}
             >
               <Users className="w-4 h-4" />
               Job Seeker
             </button>
             <button
               onClick={() => setActiveTab("recruiter")}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-1.5 rounded-sm text-sm font-medium transition-all duration-200 ${
-                activeTab === "recruiter"
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-1.5 rounded-sm text-sm font-medium transition-all duration-200 ${activeTab === "recruiter"
                   ? "bg-black text-white shadow-sm"
                   : "text-gray-600 hover:text-gray-900"
-              }`}
+                }`}
             >
               <Briefcase className="w-4 h-4" />
               Recruiter
