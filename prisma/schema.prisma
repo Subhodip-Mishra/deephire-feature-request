@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model FeatureRequest {
+  id             String   @id @default(uuid()) // UUID instead of Int autoincrement
+  name           String
+  email          String
+  featureRequest String
+  userType       String   @default("job-seeker")
+  createdAt      DateTime @default(now())
+}
+
