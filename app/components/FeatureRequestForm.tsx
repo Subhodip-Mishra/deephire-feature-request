@@ -69,9 +69,14 @@ export default function FeatureRequestForm() {
       }
 
       setIsSubmitted(true);
-    } catch (err: any) {
-      alert("Failed to submit: " + err.message);
-    } finally {
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    alert("Failed to submit: " + err.message);
+  } else {
+    alert("Failed to submit: " + String(err));
+  }
+}
+ finally {
       setIsSubmitting(false);
     }
   };
@@ -122,7 +127,7 @@ export default function FeatureRequestForm() {
             Submit Feature Request
           </CardTitle>
           <CardDescription className="text-gray-600">
-            Tell us what features you'd like to see in DeepHireAI
+            Tell us what features you&apos;d like to see in DeepHireAI
           </CardDescription>
         </CardHeader>
 

@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [selectedRequest, setSelectedRequest] = useState<FeatureRequest | null>(null);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
+  const [filter] = useState("all");
 
   useEffect(() => {
     const fetchFeatureRequests = async () => {
@@ -56,8 +56,12 @@ export default function AdminDashboard() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         setFeatureRequests(data);
-      } catch (err: any) {
-        setError(err.message);
+      }catch (err: unknown) { // replace 'any' with 'unknown'
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
       } finally {
         setLoading(false);
       }
