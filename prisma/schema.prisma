@@ -8,6 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model FeatureRequest {
   id             String   @id @default(uuid()) // UUID instead of Int autoincrement
   name           String
