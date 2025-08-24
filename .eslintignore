@@ -1,5 +1,2 @@
-lib/generated/prisma/*
-node_modules
-.next
-out
-lib/generated/prisma
+# .eslintignore
+lib/generated/prisma/
